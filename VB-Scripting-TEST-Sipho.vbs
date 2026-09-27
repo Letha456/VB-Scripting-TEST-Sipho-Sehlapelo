@@ -52,8 +52,8 @@ Class Account
 
 '============================================GET ACCOUNT DETAILS FUNCTION==========================================================
     ' Takes no parameters and returns the account holder, account number, and balance nicely formatted
-    public Function funcgetAccountDetails()
-        funcgetAccountDetails = "Account Holder: " & strAccountHolder & vbNewLine & _
+    public Function getAccountDetails()
+        getAccountDetails = "Account Holder: " & strAccountHolder & vbNewLine & _
                                 "Account Number: " & getAccountNumber & vbNewLine & _
                                 "Remaining Balance: R" & dblBalance
     End Function
@@ -61,7 +61,7 @@ Class Account
     '============================================CHECK BALANCE SUB ROUTINE==========================================================
     ' Displays the balance / account details on a message box
     public Sub CheckBalance()
-        MsgBox funcgetAccountDetails(), 0, "Account Balance & Details"
+        MsgBox getAccountDetails(), 0, "Account Balance & Details"
     End Sub
 
 
