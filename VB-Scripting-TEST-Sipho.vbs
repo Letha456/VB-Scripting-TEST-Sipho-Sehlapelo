@@ -5,7 +5,6 @@ Class Account
     public strAccountNumber
     public strAccountHolder
     public dblBalance
-    public strOutput
 
 '============================================INTIALISE BALANCE SUB ROUTINE==========================================================
     Private Sub Class_Initialize()
@@ -105,7 +104,7 @@ DO WHILE TRUE
         objAcountForUser1.strAccountHolder = straccHolder
         EXIT DO
     ELSE
-        Msgbox "Enter a Valid Full Name",0,"INVALID ACCOUNT NUMBER"
+        Msgbox "Enter a Valid Full Name",0,"INVALID NAME"
     END IF
 LOOP
 '===================================================================================================================================
@@ -120,11 +119,12 @@ strSelectionOutput = "Select a number accordding to what you want: " & vbNewLine
     
 DO WHILE TRUE
     strSelection = InputBox(strSelectionOutput, "Main Menu")
-
-    IF NOT IsNumeric(strSelection) THEN
+    IF strSelection = "" THEN 
+        EXIT DO ' Exit program if Cancel is clicked
+    ELSEIF NOT IsNumeric(strSelection) THEN
         MsgBox "Please Enter a valid number"
     ELSE
-        SELECT CASE(strSelection)
+        SELECT CASE CInt(strSelection)
         case 1
             'ask the user to enter the withdrawal amount 
             DO WHILE TRUE
@@ -134,8 +134,8 @@ DO WHILE TRUE
                 ELSEIF NOT IsNumeric(dblwithdrawalamount) THEN
                    MsgBox "Please Enter a valid number", 0, "Invalid Input"
                 ELSE
-                    objAcountForUser1.WithDrawal(CDbl(dblwithdrawalamount))
-                    objAcountForUser1.CheckBalance()
+                    objAcountForUser1.WithDrawal CDbl(dblwithdrawalamount)
+                    objAcountForUser1.CheckBalance
                     EXIT DO
                 END IF
             LOOP
@@ -148,9 +148,9 @@ DO WHILE TRUE
                 ELSEIF NOT IsNumeric(dblDepositAmount) THEN
                     MsgBox "Please Enter a valid number"
                 ELSE
-                    objAcountForUser1.Deposit(CDbl(dblDepositAmount))
-                    objAcountForUser1.CheckBalance()
-                    EXIT DO
+                    objAcountForUser1.Deposit CDbl(dblDepositAmount)
+                    objAcountForUser1.CheckBalance
+                    Exit Do
                 END IF
             LOOP
         case 3
@@ -170,15 +170,14 @@ DO WHILE TRUE
                     ELSEIF NOT IsNumeric(dbltransferAmt) THEN
                         MsgBox "Please enter a valid numeric amount.", 0, "Invalid Input"
                     ELSE
-                        ' Now it is safe to convert and pass to your method
                         objAcountForUser1.Transfer strreceivingAcc, CDbl(dbltransferAmt)
-                        objAcountForUser1.CheckBalance()
+                        objAcountForUser1.CheckBalance
                         EXIT DO
                     END IF
                 END IF
             LOOP
         case 4
-            objAcountForUser1.CheckBalance()
+            objAcountForUser1.CheckBalance
         case 5
             EXIT DO
         case else
